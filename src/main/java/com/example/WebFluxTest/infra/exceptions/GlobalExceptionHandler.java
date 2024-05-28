@@ -18,4 +18,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleCepNotFoundException(Exception ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Message: " + ex.getMessage() + "\n" + "Type: " + ex.getClass() );
     }
+
+
+    @ExceptionHandler(DDDNotFoundException.class)
+    public ResponseEntity<String> handleDDDNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Message: " + ex.getMessage() + "\n" + "Type: " + ex.getClass() );
+    }
 }

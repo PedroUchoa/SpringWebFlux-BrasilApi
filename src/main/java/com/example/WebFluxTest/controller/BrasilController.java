@@ -3,6 +3,7 @@ package com.example.WebFluxTest.controller;
 import com.example.WebFluxTest.client.BrasilClient;
 import com.example.WebFluxTest.model.BankResponse;
 import com.example.WebFluxTest.model.CepResponse;
+import com.example.WebFluxTest.model.DDDResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -34,6 +35,12 @@ public class BrasilController {
     @ResponseStatus(HttpStatus.OK)
     public Mono<CepResponse> findLocationByCep(@PathVariable String cep){
         return brasilClient.findLocationByCep(cep);
+    }
+
+    @GetMapping("/ddd/{ddd}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<DDDResponse> findLocationVyDDD(@PathVariable String ddd){
+        return brasilClient.findLocationVyDDD(ddd);
     }
 
 }

@@ -2,8 +2,10 @@ package com.example.WebFluxTest.client;
 
 import com.example.WebFluxTest.infra.exceptions.BankCodeNotFoundException;
 import com.example.WebFluxTest.infra.exceptions.CepNotFoundException;
+import com.example.WebFluxTest.infra.exceptions.DDDNotFoundException;
 import com.example.WebFluxTest.model.BankResponse;
 import com.example.WebFluxTest.model.CepResponse;
+import com.example.WebFluxTest.model.DDDResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -43,6 +45,14 @@ private final WebClient webClient;
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(new CepNotFoundException()))
                 .bodyToMono(CepResponse.class);
+    }
+
+    public Mono<DDDResponse> findLocationVyDDD(String ddd){
+        return webClient.get().uri("/ddd/v1/" + ddd)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(new DDDNotFoundException()))
+                .bodyToMono(DDDResponse.class);
     }
 
 
