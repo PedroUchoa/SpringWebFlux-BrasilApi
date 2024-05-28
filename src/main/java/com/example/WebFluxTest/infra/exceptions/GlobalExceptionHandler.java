@@ -13,4 +13,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Message: " + ex.getMessage() + "\n" + "Type: " + ex.getClass() );
     }
 
+
+    @ExceptionHandler(CepNotFoundException.class)
+    public ResponseEntity<String> handleCepNotFoundException(Exception ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Message: " + ex.getMessage() + "\n" + "Type: " + ex.getClass() );
+    }
 }

@@ -2,8 +2,8 @@ package com.example.WebFluxTest.controller;
 
 import com.example.WebFluxTest.client.BrasilClient;
 import com.example.WebFluxTest.model.BankResponse;
+import com.example.WebFluxTest.model.CepResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,6 +28,12 @@ public class BrasilController {
     @ResponseStatus(HttpStatus.OK)
     public Mono<BankResponse> findBankByCode(@PathVariable String code){
         return brasilClient.findBankByCode(code);
+    }
+
+    @GetMapping("/cep/{cep}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<CepResponse> findLocationByCep(@PathVariable String cep){
+        return brasilClient.findLocationByCep(cep);
     }
 
 }

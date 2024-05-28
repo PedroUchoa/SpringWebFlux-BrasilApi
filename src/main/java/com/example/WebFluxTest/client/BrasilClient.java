@@ -1,7 +1,9 @@
 package com.example.WebFluxTest.client;
 
 import com.example.WebFluxTest.infra.exceptions.BankCodeNotFoundException;
+import com.example.WebFluxTest.infra.exceptions.CepNotFoundException;
 import com.example.WebFluxTest.model.BankResponse;
+import com.example.WebFluxTest.model.CepResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -34,5 +36,14 @@ private final WebClient webClient;
                 .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(new BankCodeNotFoundException()))
                 .bodyToMono(BankResponse.class);
     }
+
+    public Mono<CepResponse> findLocationByCep(String cep){
+        return webClient.get().uri("/cep/v1/" + cep)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> Mono.error(new CepNotFoundException()))
+                .bodyToMono(CepResponse.class);
+    }
+
 
 }
